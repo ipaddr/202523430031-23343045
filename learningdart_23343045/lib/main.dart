@@ -11,12 +11,64 @@ void main() {
   runApp(const MyApp());
 }
 
+// if else
+// void test() {
+//   final name = 'Foo isra';
+
+//   if(name == 'Foo isra') {
+//     print('yes this is foo isra');
+//   } else if(name != 'Bar'){
+//     print('This value is not a bar');
+//   } else{
+//     print("i don't know what is this");
+//   }
+// }
+
+
+// operator
+// void test(){
+//   final name = 'Foo Bar Baz';
+//   final nameTimes100 = name * 100;
+//   print(nameTimes100);
+// }
+
+
+// list in dart
+// void test() {
+//   var names = ['Foo', 'Bar', 'Baz'];
+//   print(names.length);
+//   names.add('My name');
+//   print(names.length);
+// }
+
+
+// sets in dart
+// void test(){
+//   const things = {'foo', 1};
+//   things.add('value');
+//   things;
+// }
+
+// maps in dart
+// void test() {
+//   var person = {
+//     'name': 'Foo',
+//     'age': 30,
+//     'country': 'Bangladesh',
+//   };
+
+//   print(person);
+//   person['lastname'] = 'diaz';
+//   print(person);
+// }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    //test();
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
