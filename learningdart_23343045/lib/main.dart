@@ -62,6 +62,33 @@ void main() {
 //   print(person);
 // }
 
+
+// making any type nullable
+// void test() {
+//   List<String?>? names = ['foo', 'bar', null];
+//   names = null; 
+// }
+
+// cherry-picking non-null values
+// void test(String? firstName, String? middleName, String? lastName){
+//   final firstNonNullValue = firstName ?? middleName ?? lastName ?? 'no name';
+// }
+
+// null-aware assignment operator
+// void test(String? firstName, String? middleName, String? lastName){
+//   String? name = firstName;
+//   name ??= middleName;
+//   name ??= lastName;
+
+//   print(name);
+// }
+
+
+// conditional invocation
+void test(List<String>? names){
+  names?.add('Baz');
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
