@@ -85,8 +85,184 @@ void main() {
 
 
 // conditional invocation
-void test(List<String>? names){
-  names?.add('Baz');
+// void test(List<String>? names){
+//   names?.add('Baz');
+// }
+
+
+// enumerations
+// enum PersonProperties {firstName, lastName, age}
+
+
+// void test() {
+//    print(PersonProperties.firstName);
+// }
+
+
+// switch statement
+// enum AnimalType {cat, dog, bunny}
+
+// void makeSureThisisCat(AnimalType animalType) {
+//   switch (animalType) {
+//     case AnimalType.cat:
+//       print('This is a cat');
+//       break;
+//     case AnimalType.dog:
+//       print('This is a dog');
+//       break;
+//     case AnimalType.bunny:
+//       print('This is a bunny');
+//       break;
+//   }
+
+//   print('function is finished');
+// }
+
+
+// classes
+
+// const firstName = '';
+// const lastName = '';
+
+// class Person{
+
+//   void run() {
+//     print('Running');
+//   }
+
+//   void breathe() {
+//     print('Breathing');
+//   }
+// }
+
+
+// void test() {
+//   final person = Person();
+//   person.run();
+//   person.breathe();
+// }
+
+
+
+// objects
+// class Person{
+
+//   void run() {
+//     print('Running');
+//   }
+
+//   void breathe() {
+//     print('Breathing');
+//   }
+// }
+
+
+// void test() {
+//   final foo = Person();
+// }
+
+
+
+// constructor
+
+// class Person {
+//   final String firstName;
+//   final String lastName;
+
+//   Person(this.firstName, this.lastName);
+// }
+
+
+// methods
+// class Person {
+//   final String firstName;
+//   final String lastName;
+//   final String name;
+
+//   Person(this.firstName, this.lastName, this.name);
+
+//   void printName() {
+//     print(name);
+//   }
+// }
+
+// void test(){
+//   final person = Person('Foo', 'Bar', 'Foo Bar');
+//   person.printName();
+// }
+
+
+
+// inheritance and subclassing
+
+// class LivingThing{
+//   void breathe() {
+//     print('Breathing');
+//   }
+//   void move() {
+//     print('Moving');
+//   }
+// }
+
+// class Cat extends LivingThing {
+//   void meow() {
+//     print('Meow');
+//   }
+// }
+
+// void test() {
+//   final cat = Cat();
+//   cat.breathe();
+//   cat.move();
+//   cat.meow();
+// }
+
+
+
+// Abstract Classes
+// abstract class LivingThing{
+//   void breathe() {
+//     print('Breathing');
+//   }
+//   void move() {
+//     print('Moving');
+//   }
+// }
+
+// class cat extends LivingThing{}
+
+// void test() {
+//   final fluffer = cat();
+// }
+
+
+
+// Factory Constructor
+// class Cat{
+//   final String name;
+//   Cat(this.name);
+//   factory Cat.fluffball() {
+//     return Cat('Fluffball 2');
+//   }
+// }
+
+
+
+// custom operator
+class Cat extends Object{
+  final String name;
+  Cat(this.name);
+
+  @override
+  bool operator == (covariant other) {
+    if(other is Cat) {
+      return name == other.name;
+    }
+    return false;
+  }
+
+  @override
+  int get hashCode => name.hashCode;
 }
 
 class MyApp extends StatelessWidget {
