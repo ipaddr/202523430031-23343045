@@ -249,21 +249,120 @@ void main() {
 
 
 // custom operator
-class Cat extends Object{
-  final String name;
-  Cat(this.name);
+// class Cat extends Object{
+//   final String name;
+//   Cat(this.name);
 
-  @override
-  bool operator == (covariant other) {
-    if(other is Cat) {
-      return name == other.name;
-    }
-    return false;
-  }
+//   @override
+//   bool operator == (covariant other) {
+//     if(other is Cat) {
+//       return name == other.name;
+//     }
+//     return false;
+//   }
 
-  @override
-  int get hashCode => name.hashCode;
-}
+//   @override
+//   int get hashCode => name.hashCode;
+// }
+
+
+
+// // extensions
+// class Person {
+//   final String firstName;
+//   final String lastName;
+  
+//   Person(this.firstName, this.lastName);
+// }
+
+// extension FullName on Person {
+//   String get fullName =>  '$firstName $lastName';
+// }
+
+
+// class Cat {
+//   final String name;
+//   Cat(this.name);
+// }
+
+// extension Run on Cat{
+//   void run() {
+//     print('cat $name is running');
+//   }
+// }
+
+
+
+// // future
+// Future<int> heavyFutureThatMultipliesByTwo(int a) {
+//   return Future.delayed(const Duration(seconds: 2), () => a * 2);
+// }
+
+// void test() {}
+
+
+// async / await
+
+// Future<int> heavyFutureThatMultipliesByTwo(int a) {
+//   return Future.delayed(const Duration(seconds: 2), () => a * 2);
+// }
+
+// void test() async {
+//   final result = await heavyFutureThatMultipliesByTwo(10);
+//   print(result);
+// }
+
+
+
+// // Streams
+// Stream<String> getName() {
+//   return Stream.periodic(const Duration(seconds: 1), (value) => 'Foo');
+// }
+
+
+// void test() async {
+//   await for (final value in getName()) {
+//     print(value);
+//   }
+//   print('Stream finished working');
+// }
+
+
+
+// // generators
+// Iterable<int> getOneTwoThree() async* {
+//   yield 1;
+//   yield 2;
+//   yield 3;
+// }
+
+// void test(){
+//   for (final value in getOneTwoThree()) {
+//     print(value);
+//     if (value == 2) {
+      
+//     }
+//   }
+// }
+
+
+// // Generics
+// class Pair<A, B> {
+//   final A value1;
+//   final B value2;
+//   Pair(this.value1, this.value2);
+// }
+
+
+// void test() {
+//   final names = Pair('foo', 20);
+//   names;
+// }
+
+
+
+
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
