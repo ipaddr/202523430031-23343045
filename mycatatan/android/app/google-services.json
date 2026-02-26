@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "111013006874",
+    "project_id": "my-catatan-23343045",
+    "storage_bucket": "my-catatan-23343045.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:111013006874:android:06038ee556f45a27bbcba3",
+        "android_client_info": {
+          "package_name": "id.isra.mycatatan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWyTfNXbBm_T-kUyM2i5ohL5hjFK_aG_Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
