@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:mycatatan/firebase_options.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -30,73 +28,53 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Register')),
-      body: FutureBuilder(
-        future: Firebase.initializeApp(
-          options: DefaultFirebaseOptions.currentPlatform,
+    return Column(
+      children: [
+        TextField(
+          controller: _email,
+          keyboardType: TextInputType.emailAddress,
+          enableSuggestions: false,
+          autocorrect: false,
+          decoration: const InputDecoration(hintText: 'Email'),
         ),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.done:
-              return Column(
-                children: [
-                  TextField(
-                    controller: _email,
-                    keyboardType: TextInputType.emailAddress,
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    decoration: const InputDecoration(hintText: 'Email'),
-                  ),
-                  TextField(
-                    controller: _password,
-                    obscureText: true,
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    keyboardType: TextInputType.visiblePassword,
-                    decoration: const InputDecoration(hintText: 'Password'),
-                  ),
-                  TextButton(
-                    onPressed: () async {
-                      final email = _email.text;
-                      final password = _password.text;
-                      try {
-                        FirebaseAuth.instance
-                          .signInWithEmailAndPassword(
-                            email: email,
-                            password: password,
-                          )
-                          .then((value) => print(value))
-                          .onError((error, stackTrace) =>
-                              print('Error ${error.toString()}'));
-                      final userCredential = await FirebaseAuth.instance
-                          .createUserWithEmailAndPassword(
-                            email: email,
-                            password: password,
-                          );
-                      print(userCredential);
-                      } on FirebaseAuthException catch (e) {
-                        if(e.code == 'Weak Password'){
-                          print("weak Password");
-                        }
-                        else if(e.code == 'Email Already In Use'){
-                          print("Email Already In Use");
-                        }
-                        else{
-                          print(e);
-                        }
-                      }
-                      
-                    },
-                    child: const Text('Login'),
-                  ),
-                ],
-              );
-            default:
-              return const Text('Loading...');
-          }
-        },
-      ),
+        TextField(
+          controller: _password,
+          obscureText: true,
+          enableSuggestions: false,
+          autocorrect: false,
+          keyboardType: TextInputType.visiblePassword,
+          decoration: const InputDecoration(hintText: 'Password'),
+        ),
+        TextButton(
+          onPressed: () async {
+            final email = _email.text;
+            final password = _password.text;
+            try {
+              FirebaseAuth.instance
+                  .signInWithEmailAndPassword(email: email, password: password)
+                  .then((value) => print(value))
+                  .onError(
+                    (error, stackTrace) => print('Error ${error.toString()}'),
+                  );
+              final userCredential = await FirebaseAuth.instance
+                  .createUserWithEmailAndPassword(
+                    email: email,
+                    password: password,
+                  );
+              print(userCredential);
+            } on FirebaseAuthException catch (e) {
+              if (e.code == 'Weak Password') {
+                print("weak Password");
+              } else if (e.code == 'Email Already In Use') {
+                print("Email Already In Use");
+              } else {
+                print(e);
+              }
+            }
+          },
+          child: const Text('Login'),
+        ),
+      ],
     );
   }
-  }
+}
