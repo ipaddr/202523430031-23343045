@@ -3,14 +3,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mycatatan/firebase_options.dart';
 
-class LoginView extends StatefulWidget {
-  const LoginView({super.key});
+class RegisterView extends StatefulWidget {
+  const RegisterView({super.key});
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<RegisterView> createState() => _RegisterViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _RegisterViewState extends State<RegisterView> {
   late final TextEditingController _email;
   late final TextEditingController _password;
 
@@ -60,35 +60,14 @@ class _LoginViewState extends State<LoginView> {
                     onPressed: () async {
                       final email = _email.text;
                       final password = _password.text;
-                      try {
-                        FirebaseAuth.instance
-                          .signInWithEmailAndPassword(
-                            email: email,
-                            password: password,
-                          )
-                          .then((value) => print(value))
-                          .onError((error, stackTrace) =>
-                              print('Error ${error.toString()}'));
                       final userCredential = await FirebaseAuth.instance
                           .createUserWithEmailAndPassword(
                             email: email,
                             password: password,
                           );
                       print(userCredential);
-                      } on FirebaseAuthException catch (e) {
-                        if(e.code == 'Weak Password'){
-                          print("weak Password");
-                        }
-                        else if(e.code == 'Email Already In Use'){
-                          print("Email Already In Use");
-                        }
-                        else{
-                          print(e);
-                        }
-                      }
-                      
                     },
-                    child: const Text('Login'),
+                    child: const Text('Register'),
                   ),
                 ],
               );
@@ -99,4 +78,4 @@ class _LoginViewState extends State<LoginView> {
       ),
     );
   }
-  }
+}
