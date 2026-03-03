@@ -30,37 +30,40 @@ class _RegisterViewState extends State<RegisterView> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TextField(
-          controller: _email,
-          keyboardType: TextInputType.emailAddress,
-          enableSuggestions: false,
-          autocorrect: false,
-          decoration: const InputDecoration(hintText: 'Email'),
-        ),
-        TextField(
-          controller: _password,
-          obscureText: true,
-          enableSuggestions: false,
-          autocorrect: false,
-          keyboardType: TextInputType.visiblePassword,
-          decoration: const InputDecoration(hintText: 'Password'),
-        ),
-        TextButton(
-          onPressed: () async {
-            final email = _email.text;
-            final password = _password.text;
-            final userCredential = await FirebaseAuth.instance
-                .createUserWithEmailAndPassword(
-                  email: email,
-                  password: password,
-                );
-            print(userCredential);
-          },
-          child: const Text('Register'),
-        ),
-      ],
+    return Scaffold(
+      appBar: AppBar(title: const Text('Register'),),
+      body: Column(
+        children: [
+          TextField(
+            controller: _email,
+            keyboardType: TextInputType.emailAddress,
+            enableSuggestions: false,
+            autocorrect: false,
+            decoration: const InputDecoration(hintText: 'Email'),
+          ),
+          TextField(
+            controller: _password,
+            obscureText: true,
+            enableSuggestions: false,
+            autocorrect: false,
+            keyboardType: TextInputType.visiblePassword,
+            decoration: const InputDecoration(hintText: 'Password'),
+          ),
+          TextButton(
+            onPressed: () async {
+              final email = _email.text;
+              final password = _password.text;
+              final userCredential = await FirebaseAuth.instance
+                  .createUserWithEmailAndPassword(
+                    email: email,
+                    password: password,
+                  );
+              print(userCredential);
+            },
+            child: const Text('Register'),
+          ),
+        ],
+      ),
     );
   }
 }
