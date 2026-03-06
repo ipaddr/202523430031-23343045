@@ -3,14 +3,11 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:mycatatan/constants/routes.dart';
 import 'package:mycatatan/firebase_options.dart';
 import 'package:mycatatan/views/login_view.dart';
 import 'package:mycatatan/views/register_view.dart';
 import 'package:mycatatan/views/verify_email_view.dart';
-
-
-
-
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,9 +19,9 @@ void main() {
       ),
       home: const HomePage(),
       routes: {
-        '/login/': (context) => const LoginView(),
-        '/register/': (context) => const RegisterView(),
-        '/notes/': (context) => const NoteView(),
+        loginRoute: (context) => const LoginView(),
+        registerRoute: (context) => const RegisterView(),
+        notesRoute: (context) => const NoteView(),
       },
     ),
   );
@@ -78,23 +75,25 @@ class _NoteViewState extends State<NoteView> {
         title: const Text("Main UI"),
         actions: [
           PopupMenuButton<MenuAction>(
-            onSelected: (value) async{
-              switch(value){
+            onSelected: (value) async {
+              switch (value) {
                 case MenuAction.logout:
                   final shouldLogout = await showLogOutDialog(context);
-                  if(shouldLogout){
+                  if (shouldLogout) {
                     await FirebaseAuth.instance.signOut();
-                    Navigator.of(context).pushNamedAndRemoveUntil('/login/', (route) => false);
+                    Navigator.of(
+                      context,
+                    ).pushNamedAndRemoveUntil(loginRoute, (_) => false);
                   }
                   break;
               }
             },
-            itemBuilder: (context)  {
+            itemBuilder: (context) {
               return [
                 const PopupMenuItem<MenuAction>(
-                value: MenuAction.logout,
-                child: Text("Logout"),
-              )
+                  value: MenuAction.logout,
+                  child: Text("Logout"),
+                ),
               ];
             },
           ),
@@ -106,20 +105,26 @@ class _NoteViewState extends State<NoteView> {
 
 Future<bool> showLogOutDialog(BuildContext context) {
   return showDialog<bool>(
-    context: context, 
+    context: context,
     builder: (context) {
       return AlertDialog(
         title: const Text('Sign out'),
         content: const Text('Are you sure you want to sign out?'),
         actions: [
-          TextButton(onPressed: (){
+          TextButton(
+            onPressed: () {
               Navigator.of(context).pop(false);
-          }, child: const Text('Cancel')),
-          TextButton(onPressed: (){
+            },
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
               Navigator.of(context).pop(true);
-          }, child: const Text('Log Out')),
+            },
+            child: const Text('Log Out'),
+          ),
         ],
       );
-    }
-    ).then((value) => value ?? false);
+    },
+  ).then((value) => value ?? false);
 }
