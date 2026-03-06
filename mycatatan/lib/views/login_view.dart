@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:developer' as devtools show log;
 
 import 'package:mycatatan/constants/routes.dart';
+import 'package:mycatatan/utilities/show_error_dialog.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -55,22 +56,20 @@ class _LoginViewState extends State<LoginView> {
               final email = _email.text;
               final password = _password.text;
               try {
-                final userCredential = await FirebaseAuth.instance
-                    .createUserWithEmailAndPassword(
-                      email: email,
-                      password: password,
-                    );
+                await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
                 Navigator
                     .of(context)
                     .pushNamedAndRemoveUntil(notesRoute, (_) => false);
               } on FirebaseAuthException catch (e) {
-                if (e.code == 'Weak Password') {
-                  print("weak Password");
-                } else if (e.code == 'Email Already In Use') {
-                  print("Email Already In Use");
+                if (e.code == 'user - not - found') {
+                  await showErrorDialog(context, 'User Not Found',);
+                } else if (e.code == 'wrong-password') {
+                  await showErrorDialog(context, 'Wrong Password',);
                 } else {
-                  print(e);
+                  await showErrorDialog(context, 'Error : ${e.code}',);
                 }
+              } catch (e) {
+                await showErrorDialog(context, 'Error : ${e.toString()}',);
               }
             },
             child: const Text('Login'),
@@ -88,3 +87,4 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 }
+
