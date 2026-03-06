@@ -7,11 +7,8 @@ import 'package:mycatatan/firebase_options.dart';
 import 'package:mycatatan/views/login_view.dart';
 import 'package:mycatatan/views/register_view.dart';
 import 'package:mycatatan/views/verify_email_view.dart';
-import 'dart:developer'as devtools show log;
 
 
-
-// LAST WATCH TIME YOUTUBE : 12:51:22
 
 
 
@@ -27,6 +24,7 @@ void main() {
       routes: {
         '/login/': (context) => const LoginView(),
         '/register/': (context) => const RegisterView(),
+        '/notes/': (context) => const NoteView(),
       },
     ),
   );
