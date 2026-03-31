@@ -2,20 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:mycatatan/constants/routes.dart';
 import 'package:mycatatan/enums/menu_action.dart';
 import 'package:mycatatan/services/auth/auth_service.dart';
+import 'package:mycatatan/services/crud/notes_service.dart';
 
-class NoteView extends StatefulWidget {
-  const NoteView({super.key});
+class NotesView extends StatefulWidget {
+  const NotesView({super.key});
 
   @override
-  State<NoteView> createState() => _NoteViewState();
+  State<NotesView> createState() => _NotesViewState();
 }
 
-class _NoteViewState extends State<NoteView> {
+class _NotesViewState extends State<NotesView> {
+  late final NotesService _notesService;
+  String get userEmail => AuthService.firebase().currentUser!.email!;
+
+  @override
+  void initState() {
+    _notesService = NotesService();
+    _notesService.open();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _notesService.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Main UI"),
+        title: const Text('Main UI'),
         actions: [
           PopupMenuButton<MenuAction>(
             onSelected: (value) async {
@@ -26,26 +43,45 @@ class _NoteViewState extends State<NoteView> {
                     await AuthService.firebase().logout();
                     Navigator.of(
                       context,
-                    ).pushNamedAndRemoveUntil(loginRoute, (_) => false);
+                    ).pushNamedAndRemoveUntil(loginRoute, (route) => false);
                   }
-                  break;
               }
             },
             itemBuilder: (context) {
-              return [
-                const PopupMenuItem<MenuAction>(
+              return const [
+                PopupMenuItem<MenuAction>(
                   value: MenuAction.logout,
-                  child: Text("Logout"),
+                  child: const Text('Log out'),
                 ),
               ];
             },
           ),
         ],
       ),
+      body: FutureBuilder(
+        future: _notesService.getOrCreateUser(email: userEmail),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.done:
+              return StreamBuilder(
+                stream: _notesService.allNotes,
+                builder: (context, snapshot) {
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.waiting:
+                      return const Text('Waiting for all notes...');
+                    default:
+                      return const CircularProgressIndicator();
+                  }
+                },
+              );
+            default:
+              return const CircularProgressIndicator();
+          }
+        },
+      ),
     );
   }
 }
-
 
 Future<bool> showLogOutDialog(BuildContext context) {
   return showDialog<bool>(
@@ -65,7 +101,7 @@ Future<bool> showLogOutDialog(BuildContext context) {
             onPressed: () {
               Navigator.of(context).pop(true);
             },
-            child: const Text('Log Out'),
+            child: const Text('Log out'),
           ),
         ],
       );
