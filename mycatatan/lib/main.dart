@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:mycatatan/constants/routes.dart';
 import 'package:mycatatan/services/auth/auth_service.dart';
 import 'package:mycatatan/views/login_view.dart';
-import 'package:mycatatan/views/notes_view.dart';
+import 'package:mycatatan/views/notes/notes_view.dart';
 import 'package:mycatatan/views/register_view.dart';
 import 'package:mycatatan/views/verify_email_view.dart';
+import 'package:mycatatan/constants/routes.dart';
+import 'package:mycatatan/views/notes/new_note_view.dart';
+import 'firebase_options.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
+      theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple)),
       home: const HomePage(),
       routes: {
         loginRoute: (context) => const LoginView(),
         registerRoute: (context) => const RegisterView(),
-        notesRoute: (context) => const NoteView(),
-        VerifyEmailViewRoute: (context) => const VerifyEmailView(),
+        notesRoute: (context) => const NotesView(),
+        verifyEmailRoute: (context) => const VerifyEmailView(),
+        newNoteRoute: (context) => const NewNoteView(),
       },
     ),
   );
@@ -31,14 +32,14 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: AuthService.firebase().initialize(), 
+      future: AuthService.firebase().initialize(),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.done:
             final user = AuthService.firebase().currentUser;
             if (user != null) {
               if (user.isEmailVerified) {
-                return const NoteView();
+                return const NotesView();
               } else {
                 return const VerifyEmailView();
               }
@@ -52,6 +53,3 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-
-
-
