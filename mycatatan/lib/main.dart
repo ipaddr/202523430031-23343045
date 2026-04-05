@@ -5,7 +5,7 @@ import 'package:mycatatan/views/notes/notes_view.dart';
 import 'package:mycatatan/views/register_view.dart';
 import 'package:mycatatan/views/verify_email_view.dart';
 import 'package:mycatatan/constants/routes.dart';
-import 'package:mycatatan/views/notes/new_note_view.dart';
+import 'package:mycatatan/views/notes/create_update_note_view.dart';
 import 'firebase_options.dart';
 
 void main() {
