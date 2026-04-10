@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mycatatan/services/auth/auth_service.dart';
-import 'package:mycatatan/services/auth/auth_user.dart';
 import 'package:mycatatan/services/crud/notes_service.dart';
 import 'package:mycatatan/utilities/generics/get_arguments.dart';
 
@@ -51,8 +50,8 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
       return existingNote;
     }
     final currentUser = AuthService.firebase().currentUser;
-    final email = currentUser.email!;
-    final owner = await _notesService.getUser(email: email);
+    final email = currentUser?.email;
+    final owner = await _notesService.getUser(email: email!);
     final newNote = await _notesService.createNote(owner: owner);
     _note = newNote;
     return newNote;
@@ -106,8 +105,4 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
       ),
     );
   }
-}
-
-extension on AuthUser? {
-  get email => null;
 }
